@@ -1,0 +1,57 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Build output directories
+/out/
+build/
+target/
+
+# Logs
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Maven specific
+.mvn/
+.settings/
+*.class
+
+# Gradle specific
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Temporary files
+*.tmp
+*.temp
+
+# File-based storage indexes
+.idea/dataSources/
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+
+# JIRA plugin temp files
+.idea/jira.xml
+.idea/jira.settings.xml
+
+# Editor-based code style files
+.idea/codeStyles/Project.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/codeStyles/codeStyleSettings.xml
+
+# Workspace file
+.idea/workspace.xml
+.idea/tasks.xml
+
+# Other generated files
+.idea/modules.xml
+.idea/modules/
+.idea/.idea/
