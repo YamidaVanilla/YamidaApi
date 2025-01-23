@@ -29,7 +29,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "xyz.yamida"
             artifactId = "jda-commander"
-            version = "1.0.2"
+            version = "1.0.4"
             from(components["java"])
         }
     }

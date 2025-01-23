@@ -1,13 +1,12 @@
 package xyz.yamida.jda.commander.api.option
 
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import xyz.yamida.jda.commander.api.option.builder.CommandOption
 
 /**
  * A base class for managing command options in a reusable manner.
  */
 abstract class BaseCommandOptions : CommandOptions {
-    private val optionsList = mutableListOf<CommandOption<*>>() // List of all registered options.
+    private val options = mutableListOf<CommandOption<*>>()
 
     /**
      * Registers a [CommandOption] and adds it to the internal options list.
@@ -17,7 +16,7 @@ abstract class BaseCommandOptions : CommandOptions {
      * @return The registered [CommandOption].
      */
     protected fun <T> registerOption(option: CommandOption<T>): CommandOption<T> {
-        optionsList.add(option)
+        options.add(option)
         return option
     }
 
@@ -27,7 +26,7 @@ abstract class BaseCommandOptions : CommandOptions {
      * @return The registered [CommandOption].
      */
     fun <T> CommandOption<T>.register(): CommandOption<T> {
-        optionsList.add(this)
+        options.add(this)
         return this
     }
 
@@ -36,17 +35,5 @@ abstract class BaseCommandOptions : CommandOptions {
      *
      * @return A list of all registered [CommandOption]s.
      */
-    override fun getOptions(): List<CommandOption<*>> = optionsList
-
-    /**
-     * Retrieves the value of a specific [CommandOption] from a [SlashCommandInteractionEvent].
-     *
-     * @param T The type of the option's value.
-     * @param event The [SlashCommandInteractionEvent] containing the command's input.
-     * @param option The [CommandOption] whose value should be retrieved.
-     * @return The extracted value of the option.
-     */
-    override fun <T> getOptionValue(event: SlashCommandInteractionEvent, option: CommandOption<T>): T {
-        return option.getValue(event)
-    }
+    override fun getOptions(): List<CommandOption<*>> = options
 }

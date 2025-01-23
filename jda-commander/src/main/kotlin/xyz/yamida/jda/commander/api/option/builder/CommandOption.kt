@@ -19,15 +19,15 @@ class CommandOption<T>(
     val description: String,
     val type: OptionType,
     val required: Boolean = false,
-    private val mapper: (SlashCommandInteractionEvent) -> T
+    val mapper: (SlashCommandInteractionEvent) -> T
 ) {
     /**
      * Retrieves the value of this option from the provided SlashCommandInteractionEvent.
      *
-     * @param event The [SlashCommandInteractionEvent] containing the command's input.
      * @return The value extracted from the event.
      */
-    fun getValue(event: SlashCommandInteractionEvent): T = mapper(event)
+
+    fun get(event: SlashCommandInteractionEvent): T = mapper(event)
 
     /**
      * Converts this option to a [OptionData] object, which is required for registering
