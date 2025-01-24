@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import xyz.yamida.jda.commander.api.CommandHandler
-import xyz.yamida.jda.commander.api.option.builder.CommandOption
+import xyz.yamida.jda.commander.api.option.CommandOptions
 
 /**
  * Abstract base class for defining a Slash command. Provides default logic for registration and execution.
@@ -22,9 +22,9 @@ abstract class SlashCommand : CommandHandler {
     abstract val description: String
 
     /**
-     * A list of options (parameters) that the command can accept.
+     * A option handler.
      */
-    open val options: List<CommandOption<*>> = emptyList()
+    open val options: CommandOptions? = null
 
     /**
      * Checks whether the user has permission to execute this command.
@@ -49,7 +49,7 @@ abstract class SlashCommand : CommandHandler {
      */
     override fun registerCommands(): List<CommandData> {
         val command = Commands.slash(name, description).apply {
-            this@SlashCommand.options.forEach { addOptions(it.toOptionData()) }
+            this@SlashCommand.options?.getOptions()?.forEach { addOptions(it.toOptionData()) }
         }
         return listOf(command)
     }

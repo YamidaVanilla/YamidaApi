@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "xyz.yamida"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "xyz.yamida"
             artifactId = "kafka-client"
-            version = "1.0.1"
+            version = "1.0.0"
             from(components["java"])
         }
     }

@@ -19,11 +19,13 @@ class CommandManager(val handlers: List<CommandHandler>) : ListenerAdapter() {
      * @param event The [GuildReadyEvent] triggered when a guild becomes available.
      */
     override fun onGuildReady(event: GuildReadyEvent) {
-        handlers.forEach { handler ->
-            val commands = handler.registerCommands()
-            if (commands.isNotEmpty()) {
-                event.guild.updateCommands().addCommands(commands).queue()
-                println("Registered commands for guild ${event.guild.name}")
+        val allCommands = handlers.flatMap { handler ->
+            handler.registerCommands()
+        }
+
+        if (allCommands.isNotEmpty()) {
+            event.guild.updateCommands().addCommands(allCommands).queue {
+                println("Registered ${allCommands.size} commands for guild ${event.guild.name}")
             }
         }
     }
