@@ -181,7 +181,7 @@ implementation "xyz.yamida:kafka-client:1.0.0"
 Добавьте зависимость для JDA Command API:
 
 ```kotlin
-implementation "xyz.yamida:jda-commander:1.0.0"
+implementation "xyz.yamida:jda-commander:1.0.1"
 ```
 
 Настройте ваш JDA и подключите CommandManager.

@@ -17,14 +17,12 @@ open class CommandOptionBuilder<T>(
     lateinit var name: String
     lateinit var description: String
     var optional: Boolean = false
+    private val choices = mutableListOf<Pair<String, String>>()
 
     var mapper: (SlashCommandInteractionEvent) -> T = ::defaultMapper
 
     /**
      * Default mapper that extracts values based on option type.
-     * If the option is STRING, it gets the string value.
-     * If the option is INTEGER, it gets the integer value.
-     * If the option is BOOLEAN, it gets the boolean value.
      */
     open fun defaultMapper(event: SlashCommandInteractionEvent): T {
         return when (type) {
@@ -36,12 +34,12 @@ open class CommandOptionBuilder<T>(
     }
 
     /**
-     * Sets the mapper function to extract the option value from a [SlashCommandInteractionEvent].
-     *
-     * @param mapper A function defining how to extract the value of this option from the event.
+     * Adds multiple choices through a block-based configuration.
      */
-    fun mapper(mapper: (SlashCommandInteractionEvent) -> T) {
-        this.mapper = mapper
+    fun choice(configure: ChoiceBuilder.() -> Unit) {
+        val builder = ChoiceBuilder()
+        builder.configure()
+        choices.addAll(builder.choices)
     }
 
     /**
@@ -51,6 +49,34 @@ open class CommandOptionBuilder<T>(
      */
     fun build(): CommandOption<T> {
         configure()
-        return CommandOption(name, description, type, !optional, mapper)
+        return CommandOption(name, description, type, !optional, mapper, choices)
+    }
+
+    /**
+     * A builder class for defining choices.
+     */
+    inner class ChoiceBuilder {
+        val choices = mutableListOf<Pair<String, String>>()
+
+        /**
+         * Adds a string choice.
+         *
+         * @param value The value of the choice.
+         */
+        fun string(value: String) {
+            choices.add(value to value)
+        }
+
+        /**
+         * Adds an integer choice.
+         *
+         * @param value The value of the choice.
+         */
+        fun integer(value: Int) {
+            if (type != OptionType.INTEGER) {
+                throw IllegalArgumentException("Integer choices can only be added to INTEGER option types.")
+            }
+            choices.add(value.toString() to value.toString())
+        }
     }
 }
