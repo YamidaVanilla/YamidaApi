@@ -107,26 +107,20 @@ class AdvancedCommand : SlashCommand() {
     override val name = "advanced"
     override val description = "Пример команды с параметрами."
 
-    inner class Options : BaseCommandOptions() {
-        val nickname = stringParam {
-            name = "nickname"
-            description = "Введите ваш игровой никнейм"
-        }.register()
-
-        val password = intParam {
-            name = "password"
-            description = "Введите ваш пароль (опционально)"
+inner class Options : BaseCommandOptions() {
+        val identifier = stringParam {
+            name = "id"
+            description = "Уникальный идентификатор игрока."
             optional = true
         }.register()
     }
 
-    val container = Options()
+    override val options = Options()
 
-    override val options: List<CommandOption<*>> = container.getOptions()
 
     override fun execute(event: SlashCommandInteractionEvent) {
-        val nickname = container.nickname.get(event)
-        val password = container.password.get(event)
+        val nickname = options.nickname.get(event)
+        val password = options.password.get(event)
 
         event.reply(
             "Вы ввели:\n" +
