@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "xyz.yamida"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "xyz.yamida"
             artifactId = "jda-commander"
-            version = "1.0.1"
+            version = "1.0.2"
             from(components["java"])
         }
     }
